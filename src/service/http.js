@@ -1,4 +1,5 @@
 import axios from 'axios'
+import db from './firebase';
 
 export async function getProducts(){
     const response = await axios.get("https://fakestoreapi.com/products");
