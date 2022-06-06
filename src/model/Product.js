@@ -5,16 +5,17 @@ export class Product{
         price,
         description,
         category,
-        image,
-        rating
+        mainImage,
+        images,
     ){
         this.id = id;
         this.title = title;
         this.price = price;
         this.description = description;
         this.category = category;
-        this.image = image;
-        this.rating = Rating.fromJson(rating);
+        this.mainImage = mainImage;
+        this.images = images;
+        this.titleWithNoSpace = title.split(' ').join('-');
     }
 
     static fromJson(map) {  
@@ -24,25 +25,8 @@ export class Product{
             map["price"],
             map["description"],
             map["category"],
-            map["image"],
-            map["rating"],
-        )
-    }
-}
-
-class Rating{
-    constructor(
-        rate,
-        count
-    ){
-        this.rate = rate;
-        this.count = count;
-    }
-
-    static fromJson(map) {  
-        return new Rating(
-            map["rate"],
-            map["count"],
+            map["main_image"],
+            map["images"],
         )
     }
 }

@@ -1,12 +1,9 @@
-import axios from 'axios'
 import db from './firebase';
+import { collection, getDocs } from 'firebase/firestore';
 
 export async function getProducts(){
-    const response = await axios.get("https://fakestoreapi.com/products");
-    return response.data;
-}
+    const coll = collection(db, "products");
+    const response = await getDocs(coll);
 
-export async function getSpecificProductData({id}){
-    const response = await axios.get("https://fakestoreapi.com/products/id");
-    return response.data;
+    return response.docs.map(e => e.data());
 }

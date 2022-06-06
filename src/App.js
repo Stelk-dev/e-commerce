@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getProducts } from "./service/http"
 import { Product } from "./model/Product"
+import { Link } from 'react-router-dom';
 
 export default function App() {
   const [products, setProducts] = useState([]);
@@ -17,9 +18,14 @@ export default function App() {
 
   const ProductItemComponent = ({product}) =>{
     return (
-      <div style={{margin: "12px", display: "flex", alignItems: "center", justifyContent: "center"}}>
-        <img src={product.image} width="200px" height="200px" alt=""/>
-      </div>
+      <Link to={"/product/" + product.titleWithNoSpace} state={{ product: product }}>
+        <div style={{color: "black", margin: "12px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center"}} key={product.title}>
+          <img src={product.mainImage} width="200px" height="200px" alt={"phone - " + product.title}/>
+          <div>
+            {product.title}
+          </div>
+        </div>
+      </Link>
     )
   }
 
@@ -32,7 +38,7 @@ export default function App() {
             <div style={{display: "grid", gridTemplateColumns: "auto auto auto auto"}}>
               {
                 products.map(e =>
-                    <ProductItemComponent product={e} />
+                    <ProductItemComponent product={e} key={e.title} />
                 )
               }  
             </div>
